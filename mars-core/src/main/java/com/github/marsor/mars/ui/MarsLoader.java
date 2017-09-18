@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.github.marsor.mars.R;
-import com.github.marsor.mars.util.DimenUtil;
+import com.github.marsor.mars.util.dimen.DimenUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;

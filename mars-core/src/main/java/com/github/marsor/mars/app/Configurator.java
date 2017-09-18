@@ -12,18 +12,18 @@ import java.util.HashMap;
 
 public class Configurator {
 
-    private static final HashMap<String, Object> MARS_CONFIGS = new HashMap<>();
+    private static final HashMap<Object, Object> MARS_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
 
     private Configurator() {
-        MARS_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
+        MARS_CONFIGS.put(ConfigKeys.CONFIG_READY, false);
     }
 
-    public static Configurator getInstance() {
+    static Configurator getInstance() {
         return Holder.INSTANCE;
     }
 
-    final HashMap<String, Object> getMarsConfigs() {
+    final HashMap<Object, Object> getMarsConfigs() {
         return MARS_CONFIGS;
     }
 
@@ -33,11 +33,11 @@ public class Configurator {
 
     public final void configure() {
         initIcons();
-        MARS_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
+        MARS_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
     }
 
     public final Configurator withApiHost(String host) {
-        MARS_CONFIGS.put(ConfigType.API_HOST.name(), host);
+        MARS_CONFIGS.put(ConfigKeys.API_HOST, host);
         return this;
     }
 
@@ -56,15 +56,19 @@ public class Configurator {
     }
 
     private void checkConfiguration() {
-        final boolean isReady = (boolean) MARS_CONFIGS.get(ConfigType.CONFIG_READY.name());
+        final boolean isReady = (boolean) MARS_CONFIGS.get(ConfigKeys.CONFIG_READY);
         if (!isReady) {
             throw new RuntimeException("Configuration is not ready,call configure");
         }
     }
 
     @SuppressWarnings("unchecked")
-    final <T> T getConfigutation(Enum<ConfigType> key) {
+    final <T> T getConfiguration(Object key) {
         checkConfiguration();
-        return (T) MARS_CONFIGS.get(key.name());
+        final Object value = MARS_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL ");
+        }
+        return (T) MARS_CONFIGS.get(key);
     }
 }

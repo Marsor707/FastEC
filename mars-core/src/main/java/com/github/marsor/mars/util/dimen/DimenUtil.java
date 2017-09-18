@@ -1,4 +1,4 @@
-package com.github.marsor.mars.util;
+package com.github.marsor.mars.util.dimen;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
@@ -14,13 +14,13 @@ import com.github.marsor.mars.app.Mars;
 public class DimenUtil {
 
     public static int getScreenWidth() {
-        final Resources resources = Mars.getApplication().getResources();
+        final Resources resources = Mars.getApplicationContext().getResources();
         final DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.widthPixels;
     }
 
     public static int getScreenHeight() {
-        final Resources resources = Mars.getApplication().getResources();
+        final Resources resources = Mars.getApplicationContext().getResources();
         final DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.heightPixels;
     }

@@ -2,8 +2,6 @@ package com.github.marsor.mars.app;
 
 import android.content.Context;
 
-import java.util.HashMap;
-
 /**
  * Created by marsor on 2017/9/16.
  */
@@ -11,15 +9,21 @@ import java.util.HashMap;
 public final class Mars {
 
     public static Configurator init(Context context) {
-        getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(), context.getApplicationContext());
+        Configurator.getInstance()
+                .getMarsConfigs()
+                .put(ConfigKeys.APPLICATION_CONTEXT, context.getApplicationContext());
         return Configurator.getInstance();
     }
 
-    public static HashMap<String, Object> getConfigurations() {
-        return Configurator.getInstance().getMarsConfigs();
+    public static Configurator getConfigurator() {
+        return Configurator.getInstance();
     }
 
-    public static Context getApplication() {
-        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+    public static <T> T getConfiguration(Object key) {
+        return getConfigurator().getConfiguration(key);
+    }
+
+    public static Context getApplicationContext() {
+        return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
     }
 }
