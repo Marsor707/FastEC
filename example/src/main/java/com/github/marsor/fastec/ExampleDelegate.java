@@ -30,12 +30,12 @@ public class ExampleDelegate extends MarsDelegate {
 
     private void testClient() {
         RestClient.builder()
-                .url("https://www.baidu.com/")
+                .url("https://127.0.0.1/index")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-//                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .failure(new IFailure() {

@@ -2,6 +2,9 @@ package com.github.marsor.mars.net.callback;
 
 import android.os.Handler;
 
+import com.github.marsor.mars.app.ConfigKeys;
+import com.github.marsor.mars.app.Mars;
+import com.github.marsor.mars.net.RestCreator;
 import com.github.marsor.mars.ui.LoaderStyle;
 import com.github.marsor.mars.ui.MarsLoader;
 
@@ -46,7 +49,7 @@ public class RequestCallbacks implements Callback<String> {
             }
         }
 
-        stopLoading();
+        onRequestFinish();
     }
 
     @Override
@@ -59,17 +62,19 @@ public class RequestCallbacks implements Callback<String> {
             REQUEST.onRequestEnd();
         }
 
-        stopLoading();
+        onRequestFinish();
     }
 
-    private void stopLoading() {
+    private void onRequestFinish() {
+        long delayed = Mars.getConfiguration(ConfigKeys.LOADER_DELAYED);
         if (LOADER_STYLE != null) {
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    RestCreator.getParams().clear();
                     MarsLoader.stopLoading();
                 }
-            }, 1000);
+            }, delayed);
         }
     }
 }
