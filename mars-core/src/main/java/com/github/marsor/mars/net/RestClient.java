@@ -1,10 +1,14 @@
 package com.github.marsor.mars.net;
 
+import android.content.Context;
+
 import com.github.marsor.mars.net.callback.IError;
 import com.github.marsor.mars.net.callback.IFailure;
 import com.github.marsor.mars.net.callback.IRequest;
 import com.github.marsor.mars.net.callback.ISuccess;
 import com.github.marsor.mars.net.callback.RequestCallbacks;
+import com.github.marsor.mars.ui.LoaderStyle;
+import com.github.marsor.mars.ui.MarsLoader;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -28,8 +32,18 @@ public class RestClient {
     private final IFailure FAILURE;
     private final IError ERROR;
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
+    private final Context CONTEXT;
 
-    RestClient(String url, Map<String, Object> params, IRequest request, ISuccess success, IFailure failure, IError error, RequestBody body) {
+    RestClient(String url,
+               Map<String, Object> params,
+               IRequest request,
+               ISuccess success,
+               IFailure failure,
+               IError error,
+               RequestBody body,
+               Context context,
+               LoaderStyle loaderStyle) {
         this.URL = url;
         PARAMS.putAll(params);
         this.REQUEST = request;
@@ -37,6 +51,8 @@ public class RestClient {
         this.FAILURE = failure;
         this.ERROR = error;
         this.BODY = body;
+        this.CONTEXT = context;
+        this.LOADER_STYLE = loaderStyle;
     }
 
     public static RestClientBuilder builder() {
@@ -49,6 +65,10 @@ public class RestClient {
 
         if (REQUEST != null) {
             REQUEST.onRequestStart();
+        }
+
+        if (LOADER_STYLE != null) {
+            MarsLoader.showLoading(CONTEXT, LOADER_STYLE);
         }
 
         switch (method) {
@@ -78,7 +98,8 @@ public class RestClient {
                 REQUEST,
                 SUCCESS,
                 FAILURE,
-                ERROR);
+                ERROR,
+                LOADER_STYLE);
     }
 
     public final void get() {
