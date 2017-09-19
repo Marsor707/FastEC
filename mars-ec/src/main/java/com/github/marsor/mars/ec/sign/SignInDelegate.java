@@ -1,5 +1,6 @@
 package com.github.marsor.mars.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -9,6 +10,9 @@ import android.view.View;
 import com.github.marsor.mars.delegates.MarsDelegate;
 import com.github.marsor.mars.ec.R;
 import com.github.marsor.mars.ec.R2;
+import com.github.marsor.mars.net.RestClient;
+import com.github.marsor.mars.net.callback.ISuccess;
+import com.github.marsor.mars.util.log.MarsLogger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,9 +30,32 @@ public class SignInDelegate extends MarsDelegate {
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword = null;
 
+    ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
-        checkForm();
+        if (checkForm()) {
+            RestClient.builder()
+                    .url("http://116.196.95.67/RestServer/api/user_profile.php")
+                    .params("", "")
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            MarsLogger.json("USER_PROFILE", response);
+                            SignHandler.onSignIn(response, mISignListener);
+                        }
+                    })
+                    .build()
+                    .post();
+        }
     }
 
     @OnClick(R2.id.icon_sign_in_wechar)
