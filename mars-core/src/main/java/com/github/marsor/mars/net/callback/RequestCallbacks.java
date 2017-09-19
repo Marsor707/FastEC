@@ -5,8 +5,8 @@ import android.os.Handler;
 import com.github.marsor.mars.app.ConfigKeys;
 import com.github.marsor.mars.app.Mars;
 import com.github.marsor.mars.net.RestCreator;
-import com.github.marsor.mars.ui.LoaderStyle;
-import com.github.marsor.mars.ui.MarsLoader;
+import com.github.marsor.mars.ui.loader.LoaderStyle;
+import com.github.marsor.mars.ui.loader.MarsLoader;
 
 import retrofit2.Call;
 import retrofit2.Callback;

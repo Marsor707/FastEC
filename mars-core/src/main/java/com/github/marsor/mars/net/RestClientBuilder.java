@@ -6,7 +6,7 @@ import com.github.marsor.mars.net.callback.IError;
 import com.github.marsor.mars.net.callback.IFailure;
 import com.github.marsor.mars.net.callback.IRequest;
 import com.github.marsor.mars.net.callback.ISuccess;
-import com.github.marsor.mars.ui.LoaderStyle;
+import com.github.marsor.mars.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.github.marsor.mars.ui;
+package com.github.marsor.mars.ui.loader;
 
 import android.content.Context;
 
