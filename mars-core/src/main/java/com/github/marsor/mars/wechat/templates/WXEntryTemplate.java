@@ -1,7 +1,7 @@
 package com.github.marsor.mars.wechat.templates;
 
-import com.github.marsor.mars.activities.ProxyActivity;
-import com.github.marsor.mars.delegates.MarsDelegate;
+import com.github.marsor.mars.wechat.BaseWXEntryActivity;
+import com.github.marsor.mars.wechat.MarsWeChat;
 
 /**
  * Author: Marsor
@@ -9,10 +9,17 @@ import com.github.marsor.mars.delegates.MarsDelegate;
  * Email: 369135912@qq.com
  */
 
-public class WXEntryTemplate extends ProxyActivity {
+public class WXEntryTemplate extends BaseWXEntryActivity {
 
     @Override
-    public MarsDelegate setRootDelegate() {
-        return null;
+    protected void onResume() {
+        super.onResume();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onSignInSuccess(String userInfo) {
+        MarsWeChat.getInstance().getSignInCallback().onSignInSuccess(userInfo);
     }
 }

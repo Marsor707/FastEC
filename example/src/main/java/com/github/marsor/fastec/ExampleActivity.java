@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.Toast;
 
 import com.github.marsor.mars.activities.ProxyActivity;
+import com.github.marsor.mars.app.Mars;
 import com.github.marsor.mars.delegates.MarsDelegate;
 import com.github.marsor.mars.ec.launcher.LauncherDelegate;
 import com.github.marsor.mars.ec.launcher.LauncherScrollDelegate;
@@ -24,6 +25,7 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
         if (actionBar != null) {
             actionBar.hide();
         }
+        Mars.getConfigurator().withActivity(this);
     }
 
     @Override

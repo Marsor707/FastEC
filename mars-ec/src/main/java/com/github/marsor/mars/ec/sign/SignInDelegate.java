@@ -13,6 +13,8 @@ import com.github.marsor.mars.ec.R2;
 import com.github.marsor.mars.net.RestClient;
 import com.github.marsor.mars.net.callback.ISuccess;
 import com.github.marsor.mars.util.log.MarsLogger;
+import com.github.marsor.mars.wechat.MarsWeChat;
+import com.github.marsor.mars.wechat.callbacks.IWeChatSignInCallback;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,7 +62,12 @@ public class SignInDelegate extends MarsDelegate {
 
     @OnClick(R2.id.icon_sign_in_wechar)
     void onClickWeiChat() {
+        MarsWeChat.getInstance().onSignSuccess(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
 
+            }
+        }).signIn();
     }
 
     @OnClick(R2.id.tv_link_sign_up)
