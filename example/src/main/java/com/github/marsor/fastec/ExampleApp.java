@@ -22,8 +22,8 @@ public class ExampleApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
                 .withLoaderDelayed(1000)
-                .withApiHost("http://127.0.0.1/")
-                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withApiHost("http://116.196.95.67/RestServer/api/")
+                .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withAppId("")
                 .withAppSecret("")
                 .configure();

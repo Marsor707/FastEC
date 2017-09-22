@@ -1,6 +1,7 @@
 package com.github.marsor.mars.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 /**
  * Created by marsor on 2017/9/16.
@@ -25,5 +26,9 @@ public final class Mars {
 
     public static Context getApplicationContext() {
         return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigKeys.HANDLER);
     }
 }
