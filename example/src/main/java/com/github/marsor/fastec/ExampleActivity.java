@@ -17,6 +17,8 @@ import com.github.marsor.mars.ec.sign.SignUpDelegate;
 import com.github.marsor.mars.ui.launcher.ILauncherListener;
 import com.github.marsor.mars.ui.launcher.OnLauncherFinishTag;
 
+import qiu.niorgai.StatusBarCompat;
+
 public class ExampleActivity extends ProxyActivity implements ISignListener, ILauncherListener {
 
     @Override
@@ -27,6 +29,7 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
             actionBar.hide();
         }
         Mars.getConfigurator().withActivity(this);
+        StatusBarCompat.translucentStatusBar(this, true);
     }
 
     @Override

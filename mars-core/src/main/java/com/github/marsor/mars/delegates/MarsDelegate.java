@@ -7,4 +7,9 @@ package com.github.marsor.mars.delegates;
  */
 
 public abstract class MarsDelegate extends PermissionCheckerDelegate {
+
+    @SuppressWarnings("unchecked")
+    public <T extends MarsDelegate> T getParentDelegate() {
+        return (T) getParentFragment();
+    }
 }
