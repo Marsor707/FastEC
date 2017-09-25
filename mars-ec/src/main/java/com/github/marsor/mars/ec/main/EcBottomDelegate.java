@@ -6,6 +6,7 @@ import com.github.marsor.mars.delegates.bottom.BaseBottomDelegate;
 import com.github.marsor.mars.delegates.bottom.BottomItemDelegate;
 import com.github.marsor.mars.delegates.bottom.BottomTabBean;
 import com.github.marsor.mars.delegates.bottom.ItemBuilder;
+import com.github.marsor.mars.ec.main.discover.DiscoveryDelegate;
 import com.github.marsor.mars.ec.main.index.IndexDelegate;
 import com.github.marsor.mars.ec.main.sort.SortDelegate;
 
@@ -24,7 +25,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{fa-home}", "首页"), new IndexDelegate());
         items.put(new BottomTabBean("{fa-sort}", "分类"), new SortDelegate());
-        items.put(new BottomTabBean("{fa-compass}", "发现"), new IndexDelegate());
+        items.put(new BottomTabBean("{fa-compass}", "发现"), new DiscoveryDelegate());
         items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new IndexDelegate());
         items.put(new BottomTabBean("{fa-user}", "我的"), new IndexDelegate());
         return builder.addItems(items).build();
