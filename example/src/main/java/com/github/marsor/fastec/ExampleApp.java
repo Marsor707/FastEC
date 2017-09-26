@@ -26,6 +26,7 @@ public class ExampleApp extends Application {
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withAppId("")
                 .withAppSecret("")
+                .withJavascriptInterface("mars")
                 .configure();
         initStetho();
         DatabaseManager.getInstance().init(this);

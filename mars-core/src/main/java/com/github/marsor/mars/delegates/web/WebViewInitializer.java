@@ -1,5 +1,6 @@
 package com.github.marsor.mars.delegates.web;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -12,6 +13,7 @@ import android.webkit.WebView;
 
 public class WebViewInitializer {
 
+    @SuppressLint("SetJavaScriptEnabled")
     public WebView createWebView(WebView webView) {
         //设置可调式
         webView.setWebContentsDebuggingEnabled(true);
@@ -30,6 +32,7 @@ public class WebViewInitializer {
         });
         //初始化WebSettings
         final WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
         final String ua = settings.getUserAgentString();
         settings.setUserAgentString(ua + "Mars");
         //隐藏缩放控件

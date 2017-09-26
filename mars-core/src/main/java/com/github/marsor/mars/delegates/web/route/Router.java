@@ -37,13 +37,11 @@ public class Router {
             return true;
         }
 
-        final MarsDelegate parentDelegate = delegate.getParentDelegate();
+        final MarsDelegate topDelegate = delegate.getTopDelegate();
+
         final WebDelegateImpl webDelegate = WebDelegateImpl.create(url);
-        if (parentDelegate == null) {
-            delegate.start(webDelegate);
-        } else {
-            parentDelegate.start(webDelegate);
-        }
+        topDelegate.start(webDelegate);
+        
         return true;
     }
 

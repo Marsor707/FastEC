@@ -1,6 +1,10 @@
 package com.github.marsor.mars.delegates.web;
 
+import android.webkit.JavascriptInterface;
+
 import com.alibaba.fastjson.JSON;
+import com.github.marsor.mars.delegates.web.event.Event;
+import com.github.marsor.mars.delegates.web.event.EventManager;
 
 /**
  * Author: Marsor
@@ -8,7 +12,7 @@ import com.alibaba.fastjson.JSON;
  * Email: 369135912@qq.com
  */
 
-public class MarsWebInterface {
+final class MarsWebInterface {
 
     private final WebDelegate DELEGATE;
 
@@ -20,8 +24,18 @@ public class MarsWebInterface {
         return new MarsWebInterface(delegate);
     }
 
+    @SuppressWarnings("unused")
+    @JavascriptInterface
     public String event(String params) {
         final String action = JSON.parseObject(params).getString("action");
+        final Event event = EventManager.getInstance().createEvent(action);
+        if (event != null) {
+            event.setAction(action);
+            event.setDelegate(DELEGATE);
+            event.setContext(DELEGATE.getContext());
+            event.setUrl(DELEGATE.getUrl());
+            return event.execute(params);
+        }
         return null;
     }
 }

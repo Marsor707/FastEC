@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.webkit.WebView;
 
+import com.github.marsor.mars.app.ConfigKeys;
+import com.github.marsor.mars.app.Mars;
 import com.github.marsor.mars.delegates.MarsDelegate;
 import com.github.marsor.mars.delegates.web.route.RouteKeys;
 
@@ -23,6 +25,7 @@ public abstract class WebDelegate extends MarsDelegate implements IWebViewInitia
     private final ReferenceQueue<WebView> WEB_VIEW_QUEUE = new ReferenceQueue<>();
     private String mUrl = null;
     private boolean mIsWebViewAvailable = false;
+    private MarsDelegate mTopDelegate = null;
 
     public WebDelegate() {
     }
@@ -51,12 +54,24 @@ public abstract class WebDelegate extends MarsDelegate implements IWebViewInitia
                 mWebView = initializer.initWebView(mWebView);
                 mWebView.setWebViewClient(initializer.initWebViewClient());
                 mWebView.setWebChromeClient(initializer.initWebChromeClient());
-                mWebView.addJavascriptInterface(MarsWebInterface.create(this), "mars");
+                final String name = Mars.getConfiguration(ConfigKeys.JAVASCRIPT_INTERFACE);
+                mWebView.addJavascriptInterface(MarsWebInterface.create(this), name);
                 mIsWebViewAvailable = true;
             } else {
                 throw new NullPointerException("Initializer is null!");
             }
         }
+    }
+
+    public void setTopDelegate(MarsDelegate delegate) {
+        mTopDelegate = delegate;
+    }
+
+    public MarsDelegate getTopDelegate() {
+        if (mTopDelegate == null) {
+            mTopDelegate = this;
+        }
+        return mTopDelegate;
     }
 
     public WebView getWebView() {

@@ -2,7 +2,10 @@ package com.github.marsor.mars.app;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
+import com.github.marsor.mars.delegates.web.event.Event;
+import com.github.marsor.mars.delegates.web.event.EventManager;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -95,6 +98,17 @@ public class Configurator {
 
     public final Configurator withActivity(Activity activity) {
         MARS_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
+        return this;
+    }
+
+    public final Configurator withJavascriptInterface(@NonNull String name) {
+        MARS_CONFIGS.put(ConfigKeys.JAVASCRIPT_INTERFACE, name);
+        return this;
+    }
+
+    public final Configurator withWebEvent(@NonNull String name, @NonNull Event event) {
+        final EventManager manager = EventManager.getInstance();
+        manager.addEvent(name, event);
         return this;
     }
 
