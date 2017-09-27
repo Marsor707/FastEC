@@ -22,7 +22,7 @@ public class ExampleApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
                 .withLoaderDelayed(1000)
-                .withApiHost("http://116.196.95.67/RestServer/api/")
+                .withApiHost("http://115.159.62.44/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withAppId("")
                 .withAppSecret("")
