@@ -68,14 +68,16 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
                 deleteEntities.add(entity);
             }
         }
-        for (MultipleItemEntity deleteEntity : deleteEntities) {
+        mCurrentCount=mAdapter.getItemCount();
+        for (MultipleItemEntity entity : deleteEntities) {
             int removePosition;
-            final int entityPosition = deleteEntity.getField(ShopCartItemFields.POSITION);
-            if (entityPosition > mCurrentCount - 1) {
-                removePosition = entityPosition - (mTotalCount - mCurrentCount);
-            } else {
-                removePosition = entityPosition;
-            }
+            final int entityPosition = entity.getField(ShopCartItemFields.POSITION);
+//            if (entityPosition > mCurrentCount - 1) {
+//                removePosition = entityPosition - (mTotalCount - mCurrentCount);
+//            } else {
+//                removePosition = entityPosition;
+//            }
+            removePosition = entityPosition - (mTotalCount - mCurrentCount);
             if (removePosition <= mAdapter.getItemCount()) {
                 mAdapter.remove(removePosition);
                 mCurrentCount = mAdapter.getItemCount();
@@ -119,5 +121,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mAdapter);
+        mTotalCount=mAdapter.getItemCount();
     }
 }
