@@ -21,7 +21,7 @@ public class ExampleApp extends Application {
         Mars.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
-                .withLoaderDelayed(1000)
+                .withLoaderDelayed(100)
                 .withApiHost("http://115.159.62.44/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withAppId("")

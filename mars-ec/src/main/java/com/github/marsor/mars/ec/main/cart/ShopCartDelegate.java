@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ViewStubCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,16 +31,18 @@ import butterknife.OnClick;
  * Email: 369135912@qq.com
  */
 
-public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
+public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, ICartItemListener {
 
     private ShopCartAdapter mAdapter = null;
-    private int mCurrentCount = 0;
-    private int mTotalCount = 0;
 
     @BindView(R2.id.rv_shop_cart)
     RecyclerView mRecycler = null;
     @BindView(R2.id.icon_shop_cart_select_all)
     IconTextView mIconSelectAll = null;
+    @BindView(R2.id.stub_no_item)
+    ViewStubCompat mStubNoItem = null;
+    @BindView(R2.id.tv_shop_cart_total_price)
+    AppCompatTextView mTotalPrice = null;
 
     @OnClick(R2.id.icon_shop_cart_select_all)
     void onClickSelectAll() {
@@ -62,34 +66,54 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
         final List<MultipleItemEntity> data = mAdapter.getData();
         //要删除的数据
         final List<MultipleItemEntity> deleteEntities = new ArrayList<>();
+        int i = 0;
         for (MultipleItemEntity entity : data) {
             final boolean isSelected = entity.getField(ShopCartItemFields.IS_SELECTED);
+            entity.setField(ShopCartItemFields.POSITION, i);
             if (isSelected) {
                 deleteEntities.add(entity);
             }
+            i++;
         }
-        mCurrentCount=mAdapter.getItemCount();
         for (MultipleItemEntity entity : deleteEntities) {
-            int removePosition;
-            final int entityPosition = entity.getField(ShopCartItemFields.POSITION);
-//            if (entityPosition > mCurrentCount - 1) {
-//                removePosition = entityPosition - (mTotalCount - mCurrentCount);
-//            } else {
-//                removePosition = entityPosition;
-//            }
-            removePosition = entityPosition - (mTotalCount - mCurrentCount);
+            final int itemCount = entity.getField(ShopCartItemFields.COUNT);
+            final double itemPrice = entity.getField(ShopCartItemFields.PRICE);
+            final double deletePrice = itemPrice * itemCount;
+            final double totalPrice = mAdapter.getTotalPrice();
+            mAdapter.setTotalPrice(totalPrice - deletePrice);
+            final int removePosition = entity.getField(ShopCartItemFields.POSITION);
             if (removePosition <= mAdapter.getItemCount()) {
                 mAdapter.remove(removePosition);
-                mCurrentCount = mAdapter.getItemCount();
-                mAdapter.notifyItemRangeChanged(removePosition, mAdapter.getItemCount());
             }
         }
+        checkItemCount();
     }
 
     @OnClick(R2.id.tv_top_shop_cart_clear)
     void onClickClear() {
         mAdapter.getData().clear();
         mAdapter.notifyDataSetChanged();
+        mAdapter.setTotalPrice(0.00);
+        checkItemCount();
+    }
+
+    @SuppressWarnings("RestrictedApi")
+    private void checkItemCount() {
+        final int count = mAdapter.getItemCount();
+        if (count == 0) {
+            final View stubView = mStubNoItem.inflate();
+            final AppCompatTextView tvToBuy = (AppCompatTextView) stubView.findViewById(R.id.tv_stub_to_buy);
+            tvToBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "你该购物了", Toast.LENGTH_SHORT).show();
+                }
+            });
+            mRecycler.setVisibility(View.GONE);
+        } else {
+            mRecycler.setVisibility(View.VISIBLE);
+        }
+        onItemClick(0.00);
     }
 
     @Override
@@ -118,9 +142,16 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
         final ArrayList<MultipleItemEntity> data =
                 new ShopCartDataConverter().setJsonData(response).convert();
         mAdapter = new ShopCartAdapter(data);
+        mAdapter.setCartItemListener(this);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mAdapter);
-        mTotalCount=mAdapter.getItemCount();
+        checkItemCount();
+    }
+
+    @Override
+    public void onItemClick(double itemTotalPrice) {
+        final double price = mAdapter.getTotalPrice();
+        mTotalPrice.setText(String.valueOf(price));
     }
 }
