@@ -11,7 +11,6 @@ import com.github.marsor.mars.delegates.web.WebDelegate;
 import com.github.marsor.mars.delegates.web.route.Router;
 import com.github.marsor.mars.ui.loader.MarsLoader;
 import com.github.marsor.mars.util.log.MarsLogger;
-
 /**
  * Author: Marsor
  * Github: https://github.com/Marsor707

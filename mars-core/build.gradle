@@ -50,9 +50,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
     //Loader依赖
     compile 'com.wang.avi:library:2.1.3'
-    //Banner依赖
-    compile 'com.bigkoo:convenientbanner:2.0.5'
-    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     //JSON依赖
     compile 'com.alibaba:fastjson:1.1.63.android'
     //Log
@@ -63,13 +60,6 @@ dependencies {
     //微信依赖（包含统计）
     //noinspection GradleDynamicVersion
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    //recyclerView依赖
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
-    //recyclerView分割线
-    compile 'com.choices.divider:RecyclerView_Divider:1.0.0'
-    //图片处理
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     //沉浸式状态栏
     compile ('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'

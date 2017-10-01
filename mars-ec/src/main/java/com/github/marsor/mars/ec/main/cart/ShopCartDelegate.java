@@ -21,6 +21,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,6 +60,30 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
             mAdapter.setIsSelectedAll(false);
             mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
         }
+    }
+
+    @OnClick(R2.id.tv_shop_cart_pay)
+    void onClickPay() {
+
+    }
+
+    //创建订单
+    private void createOrder() {
+        final String orderUrl = "";
+        final WeakHashMap<String, Object> orderParams = new WeakHashMap<>();
+        //记得加入自己的参数......
+        RestClient.builder()
+                .url(orderUrl)
+                .loader(getContext())
+                .params(orderParams)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        //进行具体的支付
+                    }
+                })
+                .build()
+                .post();
     }
 
     @OnClick(R2.id.tv_top_shop_cart_remove_selected)

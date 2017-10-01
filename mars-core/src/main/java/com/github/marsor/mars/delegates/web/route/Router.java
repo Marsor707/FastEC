@@ -40,8 +40,8 @@ public class Router {
         final MarsDelegate topDelegate = delegate.getTopDelegate();
 
         final WebDelegateImpl webDelegate = WebDelegateImpl.create(url);
-        topDelegate.start(webDelegate);
-        
+        topDelegate.getSupportDelegate().start(webDelegate);
+
         return true;
     }
 

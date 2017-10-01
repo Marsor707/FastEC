@@ -1,8 +1,8 @@
-package com.github.marsor.mars;
+package com.github.marsor.mars.ui;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

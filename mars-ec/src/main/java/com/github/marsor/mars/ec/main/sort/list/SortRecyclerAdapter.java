@@ -17,6 +17,8 @@ import com.github.marsor.mars.ui.recycler.MultipleViewHolder;
 
 import java.util.List;
 
+import me.yokeyword.fragmentation.SupportHelper;
+
 /**
  * Author: Marsor
  * Github: https://github.com/Marsor707
@@ -89,9 +91,10 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
     }
 
     private void switchContent(ContentDelegate delegate) {
-        final MarsDelegate contentDelegate = DELEGATE.findChildFragment(ContentDelegate.class);
+        final MarsDelegate contentDelegate =
+                SupportHelper.findFragment(DELEGATE.getChildFragmentManager(), ContentDelegate.class);
         if (contentDelegate != null) {
-            contentDelegate.replaceFragment(delegate, false);
+            contentDelegate.getSupportDelegate().replaceFragment(delegate, false);
         }
     }
 }

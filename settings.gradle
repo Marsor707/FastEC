@@ -1,1 +1,1 @@
-include ':example', ':mars-annotations', ':mars-compiler', ':mars-core', ':mars-ec'
+include ':example', ':mars-annotations', ':mars-compiler', ':mars-core', ':mars-ec', ':mars-ui'

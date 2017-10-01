@@ -15,7 +15,6 @@ import android.provider.MediaStore;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
-
 import com.github.marsor.mars.app.Mars;
 
 import java.io.BufferedInputStream;

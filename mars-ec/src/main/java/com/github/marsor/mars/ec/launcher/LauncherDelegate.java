@@ -2,6 +2,7 @@ package com.github.marsor.mars.ec.launcher;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
@@ -68,14 +69,14 @@ public class LauncherDelegate extends MarsDelegate implements ITimerListener {
     }
 
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         initTimer();
     }
 
     //判断是否显示启动滑动页
     private void checkIsShowScroll() {
         if (!MarsPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
-            start(new LauncherScrollDelegate(), SINGLETASK);
+            getSupportDelegate().start(new LauncherScrollDelegate(), SINGLETASK);
         } else {
             //检查用户是否已经登录
             AccountManager.checkAccount(new IUserChecker() {

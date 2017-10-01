@@ -2,6 +2,7 @@ package com.github.marsor.mars.ec.sign;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.util.Patterns;
@@ -72,7 +73,7 @@ public class SignInDelegate extends MarsDelegate {
 
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLink() {
-        start(new SignUpDelegate());
+        getSupportDelegate().start(new SignUpDelegate());
     }
 
     private boolean checkForm() {
@@ -105,7 +106,7 @@ public class SignInDelegate extends MarsDelegate {
     }
 
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
     }
 }

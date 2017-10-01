@@ -2,18 +2,17 @@ package com.github.marsor.mars.ec.sign;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.marsor.mars.delegates.MarsDelegate;
 import com.github.marsor.mars.ec.R;
 import com.github.marsor.mars.ec.R2;
 import com.github.marsor.mars.net.RestClient;
 import com.github.marsor.mars.net.callback.ISuccess;
-import com.github.marsor.mars.ui.loader.MarsLoader;
 import com.github.marsor.mars.util.log.MarsLogger;
 
 import butterknife.BindView;
@@ -68,7 +67,7 @@ public class SignUpDelegate extends MarsDelegate {
 
     @OnClick(R2.id.tv_link_sign_in)
     void onClickLink() {
-        start(new SignInDelegate());
+        getSupportDelegate().start(new SignInDelegate());
     }
 
     private boolean checkForm() {
@@ -125,7 +124,7 @@ public class SignUpDelegate extends MarsDelegate {
     }
 
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
     }
 }
