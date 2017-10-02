@@ -1,7 +1,9 @@
 package com.github.marsor.mars.wechat.templates;
 
-import com.github.marsor.mars.activities.ProxyActivity;
-import com.github.marsor.mars.delegates.MarsDelegate;
+import android.widget.Toast;
+
+import com.github.marsor.mars.wechat.BaseWXPayEntryActivity;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
 
 /**
  * Author: Marsor
@@ -9,10 +11,31 @@ import com.github.marsor.mars.delegates.MarsDelegate;
  * Email: 369135912@qq.com
  */
 
-public class WXPayEntryTemplate extends ProxyActivity {
+public class WXPayEntryTemplate extends BaseWXPayEntryActivity {
 
     @Override
-    public MarsDelegate setRootDelegate() {
-        return null;
+    protected void onPaySuccess() {
+        Toast.makeText(this, "支付成功", Toast.LENGTH_SHORT).show();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onPayFail() {
+        Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onPayCancel() {
+        Toast.makeText(this, "支付取消", Toast.LENGTH_SHORT).show();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onReq(BaseReq baseReq) {
+
     }
 }
