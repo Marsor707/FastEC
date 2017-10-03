@@ -9,6 +9,7 @@ import com.github.marsor.mars.delegates.bottom.ItemBuilder;
 import com.github.marsor.mars.ec.main.cart.ShopCartDelegate;
 import com.github.marsor.mars.ec.main.discover.DiscoveryDelegate;
 import com.github.marsor.mars.ec.main.index.IndexDelegate;
+import com.github.marsor.mars.ec.main.personal.PersonalDelegate;
 import com.github.marsor.mars.ec.main.sort.SortDelegate;
 
 import java.util.LinkedHashMap;
@@ -28,7 +29,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         items.put(new BottomTabBean("{fa-sort}", "分类"), new SortDelegate());
         items.put(new BottomTabBean("{fa-compass}", "发现"), new DiscoveryDelegate());
         items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new ShopCartDelegate());
-        items.put(new BottomTabBean("{fa-user}", "我的"), new IndexDelegate());
+        items.put(new BottomTabBean("{fa-user}", "我的"), new PersonalDelegate());
         return builder.addItems(items).build();
     }
 

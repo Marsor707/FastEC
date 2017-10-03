@@ -8,6 +8,7 @@ package com.github.marsor.mars.ui.recycler;
 
 public enum MultipleFields {
     ITEM_TYPE,
+    TITLE,
     TEXT,
     IMAGE_URL,
     BANNERS,
