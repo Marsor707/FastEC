@@ -14,6 +14,7 @@ import com.github.marsor.mars.ec.main.personal.list.ListAdapter;
 import com.github.marsor.mars.ec.main.personal.list.ListBean;
 import com.github.marsor.mars.ec.main.personal.list.ListItemType;
 import com.github.marsor.mars.ec.main.personal.order.OrderListDelegate;
+import com.github.marsor.mars.ec.main.personal.profile.UserProfileDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,11 @@ public class PersonalDelegate extends BottomItemDelegate {
     void onClickAllOrder() {
         mArgs.putString(ORDER_TYPE, "all");
         startOrderListByType();
+    }
+
+    @OnClick(R2.id.img_user_avatar)
+    void onClickAvatar() {
+        getParentDelegate().getSupportDelegate().start(new UserProfileDelegate());
     }
 
     @Override
