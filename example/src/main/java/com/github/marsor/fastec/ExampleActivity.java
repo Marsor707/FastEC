@@ -15,6 +15,7 @@ import com.github.marsor.mars.ec.sign.SignInDelegate;
 import com.github.marsor.mars.ui.launcher.ILauncherListener;
 import com.github.marsor.mars.ui.launcher.OnLauncherFinishTag;
 
+import cn.jpush.android.api.JPushInterface;
 import qiu.niorgai.StatusBarCompat;
 
 public class ExampleActivity extends ProxyActivity implements ISignListener, ILauncherListener {
@@ -28,6 +29,18 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
         }
         Mars.getConfigurator().withActivity(this);
         StatusBarCompat.translucentStatusBar(this, true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.github.marsor.mars.ec.icon.FontEcModule;
 import com.github.marsor.mars.net.Interceptors.DebugInterceptor;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by marsor on 2017/9/16.
  */
@@ -30,6 +32,10 @@ public class ExampleApp extends Application {
                 .configure();
         initStetho();
         DatabaseManager.getInstance().init(this);
+
+        //开启极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     private void initStetho() {
