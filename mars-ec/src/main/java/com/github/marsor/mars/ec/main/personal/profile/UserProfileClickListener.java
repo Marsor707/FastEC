@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.github.marsor.mars.delegates.MarsDelegate;
@@ -45,6 +47,43 @@ public class UserProfileClickListener extends SimpleClickListener {
                     @Override
                     public void executeCallback(@Nullable Uri args) {
                         MarsLogger.d("ON_CROP", args);
+                        final ImageView avatar = (ImageView) view.findViewById(R.id.img_arrow_avatar);
+                        Glide.with(DELEGATE)
+                                .load(args)
+                                .into(avatar);
+
+                        /*
+                        上传服务器
+                        RestClient.builder()
+                                .url(UploadConfig.UPLOAD_IMG)
+                                .loader(DELEGATE.getContext())
+                                .file(args.getPath())
+                                .success(new ISuccess() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        MarsLogger.d("ON_CROP_UPLOAD", response);
+                                        final String path =
+                                                JSON.parseObject(response).getJSONObject("result").getString("path");
+
+                                        //通知服务器更新信息
+                                        RestClient.builder()
+                                                .url("user_profile.php")
+                                                .params("avatar", path)
+                                                .loader(DELEGATE.getContext())
+                                                .success(new ISuccess() {
+                                                    @Override
+                                                    public void onSuccess(String response) {
+                                                        //获取更新后的用户信息，然后更新本地数据库
+                                                        //没有本地数据的APP，每次打开APP都请求API，获取信息
+                                                    }
+                                                })
+                                                .build()
+                                                .post();
+                                    }
+                                })
+                                .build()
+                                .upload();
+                        */
                     }
                 });
                 DELEGATE.startCameraWithCheck();
