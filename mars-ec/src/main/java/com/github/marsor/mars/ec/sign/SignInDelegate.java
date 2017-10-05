@@ -47,7 +47,7 @@ public class SignInDelegate extends MarsDelegate {
     void onClickSignIn() {
         if (checkForm()) {
             RestClient.builder()
-                    .url("http://116.196.95.67/RestServer/api/user_profile.php")
+                    .url("user_profile.php")
                     .params("", "")
                     .success(new ISuccess() {
                         @Override

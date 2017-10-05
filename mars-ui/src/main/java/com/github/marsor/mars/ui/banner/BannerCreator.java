@@ -3,7 +3,7 @@ package com.github.marsor.mars.ui.banner;
 import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.github.marsor.mars.R;
+import com.github.marsor.mars.ui.R;
 
 import java.util.ArrayList;
 

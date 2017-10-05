@@ -1,9 +1,11 @@
 package com.github.marsor.mars.app;
 
 import android.app.Activity;
+import android.app.Application;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.Utils;
 import com.github.marsor.mars.delegates.web.event.Event;
 import com.github.marsor.mars.delegates.web.event.EventManager;
 import com.joanzapata.iconify.IconFontDescriptor;
@@ -48,6 +50,7 @@ public class Configurator {
         initIcons();
         Logger.addLogAdapter(new AndroidLogAdapter());
         MARS_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
+        Utils.init((Application) Mars.getApplicationContext());
     }
 
     public final Configurator withApiHost(String host) {

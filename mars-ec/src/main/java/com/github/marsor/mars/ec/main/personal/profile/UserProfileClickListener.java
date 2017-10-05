@@ -2,6 +2,8 @@ package com.github.marsor.mars.ec.main.personal.profile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +13,10 @@ import com.github.marsor.mars.delegates.MarsDelegate;
 import com.github.marsor.mars.ec.R;
 import com.github.marsor.mars.ec.main.personal.list.ListBean;
 import com.github.marsor.mars.ui.date.DateDialogUtil;
+import com.github.marsor.mars.util.callback.CallbackManager;
+import com.github.marsor.mars.util.callback.CallbackType;
+import com.github.marsor.mars.util.callback.IGlobalCallback;
+import com.github.marsor.mars.util.log.MarsLogger;
 
 /**
  * Author: Marsor
@@ -34,7 +40,14 @@ public class UserProfileClickListener extends SimpleClickListener {
         final int id = bean.getId();
         switch (id) {
             case 1:
-                //TODO 开始照相机或选择图片
+                //开始照相机或选择图片
+                CallbackManager.getInstance().addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {
+                    @Override
+                    public void executeCallback(@Nullable Uri args) {
+                        MarsLogger.d("ON_CROP", args);
+                    }
+                });
+                DELEGATE.startCameraWithCheck();
                 break;
             case 2:
                 final MarsDelegate nameDelegate = bean.getDelegate();
