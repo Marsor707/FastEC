@@ -47,6 +47,7 @@ public class StarLayout extends LinearLayoutCompat implements View.OnClickListen
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
             lp.weight = 1;
             star.setLayoutParams(lp);
+            star.setTextSize(36);
             star.setText(ICON_UN_SELECT);
             star.setTag(R.id.star_position, i);
             star.setTag(R.id.star_is_select, false);
