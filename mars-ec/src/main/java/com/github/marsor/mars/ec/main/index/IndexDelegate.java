@@ -1,6 +1,7 @@
 package com.github.marsor.mars.ec.main.index;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.marsor.mars.delegates.bottom.BottomItemDelegate;
 import com.github.marsor.mars.ec.R;
@@ -16,9 +18,13 @@ import com.github.marsor.mars.ec.R2;
 import com.github.marsor.mars.ec.main.EcBottomDelegate;
 import com.github.marsor.mars.ui.recycler.BaseDecoration;
 import com.github.marsor.mars.ui.refresh.RefreshHandler;
+import com.github.marsor.mars.util.callback.CallbackManager;
+import com.github.marsor.mars.util.callback.CallbackType;
+import com.github.marsor.mars.util.callback.IGlobalCallback;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author: Marsor
@@ -41,9 +47,20 @@ public class IndexDelegate extends BottomItemDelegate {
 
     private RefreshHandler mRefreshHandler = null;
 
+    @OnClick(R2.id.icon_index_scan)
+    void onClickScanQrCode() {
+        startScamWithCheck(this.getParentDelegate());
+    }
+
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
+        CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback() {
+            @Override
+            public void executeCallback(@Nullable Object args) {
+                Toast.makeText(getContext(), "得到的二维码是:" + args, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void initRefreshLayout() {

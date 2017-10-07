@@ -12,6 +12,7 @@ import com.github.marsor.mars.ui.camera.CameraHandler;
 import com.github.marsor.mars.ui.camera.CameraImageBean;
 import com.github.marsor.mars.ui.camera.MarsCamera;
 import com.github.marsor.mars.ui.camera.RequestCodes;
+import com.github.marsor.mars.ui.scanner.ScannerDelegate;
 import com.github.marsor.mars.util.callback.CallbackManager;
 import com.github.marsor.mars.util.callback.CallbackType;
 import com.github.marsor.mars.util.callback.IGlobalCallback;
@@ -42,6 +43,16 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
     //真正调用的方法
     public void startCameraWithCheck() {
         PermissionCheckerDelegatePermissionsDispatcher.startCameraWithPermissionCheck(this);
+    }
+
+    //扫描二维码(不是直接调用)
+    @NeedsPermission(Manifest.permission.CAMERA)
+    void startScan(BaseDelegate delegate) {
+        delegate.getSupportDelegate().startForResult(new ScannerDelegate(), RequestCodes.SCAN);
+    }
+
+    public void startScamWithCheck(BaseDelegate delegate) {
+        PermissionCheckerDelegatePermissionsDispatcher.startScanWithPermissionCheck(this, delegate);
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
