@@ -16,6 +16,7 @@ import com.github.marsor.mars.delegates.bottom.BottomItemDelegate;
 import com.github.marsor.mars.ec.R;
 import com.github.marsor.mars.ec.R2;
 import com.github.marsor.mars.ec.main.EcBottomDelegate;
+import com.github.marsor.mars.ec.main.index.search.SearchDelegate;
 import com.github.marsor.mars.ui.recycler.BaseDecoration;
 import com.github.marsor.mars.ui.refresh.RefreshHandler;
 import com.github.marsor.mars.util.callback.CallbackManager;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
  * Email: 369135912@qq.com
  */
 
-public class IndexDelegate extends BottomItemDelegate {
+public class IndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener {
 
     @BindView(R2.id.rv_index)
     RecyclerView mRecyclerView = null;
@@ -61,6 +62,7 @@ public class IndexDelegate extends BottomItemDelegate {
                 Toast.makeText(getContext(), "得到的二维码是:" + args, Toast.LENGTH_LONG).show();
             }
         });
+        mSearchView.setOnFocusChangeListener(this);
     }
 
     private void initRefreshLayout() {
@@ -93,5 +95,12 @@ public class IndexDelegate extends BottomItemDelegate {
     @Override
     public Object setLayout() {
         return R.layout.delegate_index;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            getParentDelegate().getSupportDelegate().start(new SearchDelegate());
+        }
     }
 }
