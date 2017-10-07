@@ -1,5 +1,6 @@
 package com.github.marsor.mars.ui.refresh;
 
+import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import com.github.marsor.mars.net.RestClient;
 import com.github.marsor.mars.net.callback.ISuccess;
 import com.github.marsor.mars.ui.recycler.DataConverter;
 import com.github.marsor.mars.ui.recycler.MultipleRecyclerAdapter;
+import com.github.marsor.mars.util.log.MarsLogger;
 
 /**
  * Author: Marsor
@@ -72,6 +74,39 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                 .get();
     }
 
+    private void paging(final String url) {
+        final int pageSize = BEAN.getPageSize();
+        final int currentCount = BEAN.getCurrentCount();
+        final int total = BEAN.getTotal();
+        final int index = BEAN.getPageIndex();
+
+        if (mAdapter.getData().size() < pageSize || currentCount >= total) {
+            mAdapter.loadMoreEnd(true);
+        } else {
+            Mars.getHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    RestClient.builder()
+                            .url(url + index)
+                            .success(new ISuccess() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    MarsLogger.d("paging", response);
+                                    CONVERTER.clearData();
+                                    mAdapter.addData(CONVERTER.setJsonData(response).convert());
+                                    //累加数量
+                                    BEAN.setCurrentCount(mAdapter.getData().size());
+                                    mAdapter.loadMoreComplete();
+                                    BEAN.addIndex();
+                                }
+                            })
+                            .build()
+                            .get();
+                }
+            }, 300);
+        }
+    }
+
     @Override
     public void onRefresh() {
         refresh();
@@ -79,6 +114,6 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
 
     @Override
     public void onLoadMoreRequested() {
-
+        paging("refresh.php?index=");
     }
 }
