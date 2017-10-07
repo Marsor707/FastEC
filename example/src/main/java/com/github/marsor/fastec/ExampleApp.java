@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.annotation.Nullable;
 
 import com.facebook.stetho.Stetho;
+import com.github.marsor.fastec.event.ShareEvent;
 import com.github.marsor.mars.app.Mars;
 import com.github.marsor.mars.ec.database.DatabaseManager;
 import com.github.marsor.mars.ec.icon.FontEcModule;
@@ -33,6 +34,7 @@ public class ExampleApp extends Application {
                 .withAppId("")
                 .withAppSecret("")
                 .withJavascriptInterface("mars")
+                .withWebEvent("share", new ShareEvent())
                 .configure();
         initStetho();
         DatabaseManager.getInstance().init(this);
