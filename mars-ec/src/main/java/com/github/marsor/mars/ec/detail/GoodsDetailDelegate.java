@@ -97,6 +97,11 @@ public class GoodsDetailDelegate extends MarsDelegate implements AppBarLayout.On
         BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
     }
 
+    @OnClick(R2.id.icon_goods_back)
+    void onClickBack() {
+        getSupportDelegate().pop();
+    }
+
     private void setShopCartCount(JSONObject data) {
         mGoodsThumbUrl = data.getString("thumb");
         if (mShopCount == 0) {

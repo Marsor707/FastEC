@@ -115,6 +115,12 @@ public class Configurator {
         return this;
     }
 
+    //浏览器加载的HOST
+    public final Configurator withWebHost(String host) {
+        MARS_CONFIGS.put(ConfigKeys.WEB_HOST, host);
+        return this;
+    }
+
     private void checkConfiguration() {
         final boolean isReady = (boolean) MARS_CONFIGS.get(ConfigKeys.CONFIG_READY);
         if (!isReady) {

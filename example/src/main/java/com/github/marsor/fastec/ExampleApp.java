@@ -9,6 +9,7 @@ import com.github.marsor.mars.app.Mars;
 import com.github.marsor.mars.ec.database.DatabaseManager;
 import com.github.marsor.mars.ec.icon.FontEcModule;
 import com.github.marsor.mars.net.Interceptors.DebugInterceptor;
+import com.github.marsor.mars.net.rx.AddCookieInterceptor;
 import com.github.marsor.mars.util.callback.CallbackManager;
 import com.github.marsor.mars.util.callback.CallbackType;
 import com.github.marsor.mars.util.callback.IGlobalCallback;
@@ -35,6 +36,8 @@ public class ExampleApp extends Application {
                 .withAppSecret("")
                 .withJavascriptInterface("mars")
                 .withWebEvent("share", new ShareEvent())
+                .withWebHost("https://www.baidu.com/")
+                .withInterceptor(new AddCookieInterceptor())
                 .configure();
         initStetho();
         DatabaseManager.getInstance().init(this);

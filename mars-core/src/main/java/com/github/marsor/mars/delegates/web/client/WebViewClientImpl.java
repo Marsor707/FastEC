@@ -2,15 +2,19 @@ package com.github.marsor.mars.delegates.web.client;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.github.marsor.mars.app.ConfigKeys;
 import com.github.marsor.mars.app.Mars;
 import com.github.marsor.mars.delegates.IPageLoadListener;
 import com.github.marsor.mars.delegates.web.WebDelegate;
 import com.github.marsor.mars.delegates.web.route.Router;
 import com.github.marsor.mars.ui.loader.MarsLoader;
 import com.github.marsor.mars.util.log.MarsLogger;
+import com.github.marsor.mars.util.storage.MarsPreference;
+
 /**
  * Author: Marsor
  * Github: https://github.com/Marsor707
@@ -46,9 +50,25 @@ public class WebViewClientImpl extends WebViewClient {
         MarsLoader.showLoading(view.getContext());
     }
 
+    //获取浏览器cookie
+    private void syncCookie() {
+        final CookieManager manager = CookieManager.getInstance();
+        //注意这里的Cookie和API请求的Cookie是不一样的，这个在网页不可见
+        final String webHost = Mars.getConfiguration(ConfigKeys.WEB_HOST);
+        if (webHost != null) {
+            if (manager.hasCookies()) {
+                final String cookieStr = manager.getCookie(webHost);
+                if (cookieStr != null && !cookieStr.equals("")) {
+                    MarsPreference.addCustomAppProfile("cookie", cookieStr);
+                }
+            }
+        }
+    }
+
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+        syncCookie();
         if (mIPageLoadListener != null) {
             mIPageLoadListener.onLoadEnd();
         }
