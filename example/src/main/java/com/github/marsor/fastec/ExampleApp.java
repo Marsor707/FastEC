@@ -1,7 +1,7 @@
 package com.github.marsor.fastec;
 
-import android.app.Application;
 import android.support.annotation.Nullable;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.stetho.Stetho;
 import com.github.marsor.fastec.event.ShareEvent;
@@ -21,7 +21,7 @@ import cn.jpush.android.api.JPushInterface;
  * Created by marsor on 2017/9/16.
  */
 
-public class ExampleApp extends Application {
+public class ExampleApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
