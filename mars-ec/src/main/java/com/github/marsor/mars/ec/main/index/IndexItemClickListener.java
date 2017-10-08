@@ -6,6 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.github.marsor.mars.delegates.MarsDelegate;
 import com.github.marsor.mars.ec.detail.GoodsDetailDelegate;
+import com.github.marsor.mars.ui.recycler.MultipleFields;
+import com.github.marsor.mars.ui.recycler.MultipleItemEntity;
 
 /**
  * Author: Marsor
@@ -27,7 +29,9 @@ public class IndexItemClickListener extends SimpleClickListener {
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        final GoodsDetailDelegate delegate = GoodsDetailDelegate.create();
+        final MultipleItemEntity entity = (MultipleItemEntity) baseQuickAdapter.getData().get(position);
+        final int goodsId = entity.getField(MultipleFields.ID);
+        final GoodsDetailDelegate delegate = GoodsDetailDelegate.create(goodsId);
         DELEGATE.getSupportDelegate().start(delegate);
     }
 
