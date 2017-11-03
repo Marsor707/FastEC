@@ -1,7 +1,5 @@
 package com.github.marsor.mars.net.download;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.github.marsor.mars.app.Mars;
@@ -65,11 +63,7 @@ public class SaveFileTask extends AsyncTask<Object, Void, File> {
 
     private void autoInstallApk(File file) {
         if (FileUtil.getExtension(file.getPath()).equals("apk")) {
-            final Intent install = new Intent();
-            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            install.setAction(Intent.ACTION_VIEW);
-            install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            Mars.getApplicationContext().startActivity(install);
+            FileUtil.installApk(Mars.getApplicationContext(), file);
         }
     }
 }
